@@ -128,6 +128,12 @@ module CarrierWave
         end
 
         def url
+          return qiniu_connection.download_url(@path) if options.empty?
+          
+          if options[:style]
+            return qiniu_connection.download_url("#{@path}#{options[:separator]}#{options[:style]}")
+          end
+          
           qiniu_connection.download_url(@path)
         end
 
