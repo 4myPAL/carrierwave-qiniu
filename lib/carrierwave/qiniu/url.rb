@@ -22,20 +22,7 @@ module CarrierWave
           version = args.first.to_sym
           if styles.key? version.to_sym
             options = args.last
-
-            # TODO: handle private url
-            url = super({})
-            # Usage: avatar.url(:version, inline: true)
-            if options.present? && options.is_a?(Hash) && options[:inline] && styles[version]
-              return "#{url}?#{styles[version]}"
-            else # Usage: avatar.url(:version)
-              # inline mode
-              if self.class.qiniu_style_inline && styles[version]
-                return "#{url}?#{styles[version]}"
-              else
-                return "#{url}#{self.class.qiniu_style_separator}#{version}"
-              end
-            end
+            return super(style: version, separator: self.class.qiniu_style_separator)
           end
         end
 
