@@ -127,7 +127,7 @@ module CarrierWave
           @path
         end
 
-        def url
+        def url(options = {})
           return qiniu_connection.download_url(@path) if options.empty?
           
           if options[:style]
